@@ -1,12 +1,11 @@
-const categoryOptions = { 
-    
-}
+import { useContext, useState } from "react";
+import { ContextProduct } from "../../contexts/productContext";
 
 const Header = () => {
+  const { productsCategory,selectedCategory,setSelectedCategory } = useContext(ContextProduct);
   return (
-    <div className="w-full p-4 mt-10" >
-      <section className="" >
-
+    <div className="w-full p-4 mt-10">
+      <section className="">
         <div className="flex gap-8">
           <div className="relative">
             <details className="group [&_summary::-webkit-details-marker]:hidden">
@@ -32,73 +31,37 @@ const Header = () => {
               </summary>
 
               <div className="z-50 group-open:absolute group-open:start-0 group-open:top-auto group-open:mt-2">
-                <div className="w-96 rounded border border-gray-200 bg-white">
-                  <header className="flex items-center justify-between p-4">
-                    <span className="text-sm text-gray-700"> 0 Selected </span>
-
-                    <button
-                      type="button"
-                      className="text-sm text-gray-900 underline underline-offset-4"
-                    >
-                      Reset
-                    </button>
-                  </header>
+                <div className="w-60 rounded border border-gray-200 bg-white">
 
                   <ul className="space-y-1 border-t border-gray-200 p-4">
-                    <li>
-                      <label
-                        htmlFor="FilterInStock"
-                        className="inline-flex items-center gap-2"
-                      >
-                        <input
-                          type="checkbox"
-                          id="FilterInStock"
-                          className="size-5 rounded border-gray-300"
-                        />
+                    {productsCategory.map((category) => {
+                      return (
+                        <li key={category} >
+                          <fieldset>
+                            <label
+                              htmlFor={`LabelCheck${category}`}
+                              className="w-full flex items-center py-1 gap-2 cursor-pointer hover:bg-slate-50 "
+                            >
+                              <input
+                                type="radio"
+                                name={category}
+                                value={category}
+                                id={`LabelCheck${category}`}
+                                className="size-5 rounded border-gray-300"
+                                checked={selectedCategory === category}
+                                onChange={(e)=>setSelectedCategory(e.target.value)}
+                              />
 
-                        <span className="text-sm font-medium text-gray-700">
-                          {" "}
-                          In Stock (5+){" "}
-                        </span>
-                      </label>
-                    </li>
-
-                    <li>
-                      <label
-                        htmlFor="FilterPreOrder"
-                        className="inline-flex items-center gap-2"
-                      >
-                        <input
-                          type="checkbox"
-                          id="FilterPreOrder"
-                          className="size-5 rounded border-gray-300"
-                        />
-
-                        <span className="text-sm font-medium text-gray-700">
-                          {" "}
-                          Pre Order (3+){" "}
-                        </span>
-                      </label>
-                    </li>
-
-                    <li>
-                      <label
-                        htmlFor="FilterOutOfStock"
-                        className="inline-flex items-center gap-2"
-                      >
-                        <input
-                          type="checkbox"
-                          id="FilterOutOfStock"
-                          className="size-5 rounded border-gray-300"
-                        />
-
-                        <span className="text-sm font-medium text-gray-700">
-                          {" "}
-                          Out of Stock (10+){" "}
-                        </span>
-                      </label>
-                    </li>
+                              <span className="text-sm font-medium text-gray-700">
+                                {category}
+                              </span>
+                            </label>
+                          </fieldset>
+                        </li>
+                      );
+                    })}
                   </ul>
+
                 </div>
               </div>
             </details>
