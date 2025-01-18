@@ -65,11 +65,7 @@ const Card = ({ product = defaultProduct }) => {
     <div className="w-full h-full max-w-xs p-2 flex flex-col justify-between gap-5 bg-slate-50">
       <div className="flex flex-col" >
         <div>
-          <img
-            className="img-product w-full"
-            src={product?.thumbnail}
-            alt={product?.title}
-          />
+          <img src={product.thumbnail} alt={product.title} />
         </div>
         <section className="flex justify-between gap-3 ">
           <h3 className="titleCard">
@@ -79,7 +75,7 @@ const Card = ({ product = defaultProduct }) => {
         </section>
       </div>
       <footer>
-        <button className="w-full p-2 bg-slate-900 rounded-2xl flex justify-center hover:bg-slate-700 active:bg-slate-900 ">
+        <button className="w-full p-2 bg-slate-600 rounded-2xl flex justify-center hover:bg-slate-500 active:bg-slate-600 ">
           {" "}
           <IconCartPlus />{" "}
         </button>
