@@ -6,6 +6,7 @@ export const ContextProduct = createContext([]);
 export const ProviderProduct = ({ children }) => {
   const [products, setProducts] = useState(productJson);
   const [filterProducts, setFilterProducts] = useState(products);
+  const [maxPrice, setMaxPrice] = useState(20);
   const [productsCategory, setCategorys] = useState(["all"]);
   const [selectedCategory, setSelectedCategory] = useState(productsCategory[0]);
   const getCategorys = () => {
@@ -18,21 +19,36 @@ export const ProviderProduct = ({ children }) => {
   useEffect(() => {
     getCategorys();
   }, []);
-  useEffect(()=>{
-      filterByCategory(selectedCategory); 
-  },[selectedCategory])
-  function filterByCategory(category) {
+
+  useEffect(() => {
+    filterByCategoryAndPrice(selectedCategory);
+  }, [selectedCategory, maxPrice]);
+
+  function filterByCategoryAndPrice(category, price = maxPrice) {
     if (category === productsCategory[0]) {
-      setFilterProducts(products);
+      const responseFilter = products.filter(
+        (product) => product.price <= price
+      );
+      setFilterProducts(responseFilter);
     } else {
       const responseFilter = products.filter(
-        (product) => product.category === category
+        (product) => product.category === category && product.price <= price
       );
       setFilterProducts(responseFilter);
     }
   }
   return (
-    <ContextProduct.Provider value={{ products,filterProducts, productsCategory,selectedCategory,setSelectedCategory }}>
+    <ContextProduct.Provider
+      value={{
+        products,
+        filterProducts,
+        productsCategory,
+        selectedCategory,
+        setSelectedCategory,
+        maxPrice,
+        setMaxPrice,
+      }}
+    >
       {children}
     </ContextProduct.Provider>
   );
