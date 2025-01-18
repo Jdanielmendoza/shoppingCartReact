@@ -104,12 +104,6 @@ const Header = () => {
                       The highest price is $300
                     </span>
 
-                    <button
-                      type="button"
-                      className="text-sm text-gray-900 underline underline-offset-4"
-                    >
-                      Reset
-                    </button>
                   </header>
 
                   <div className="border-t border-gray-200 p-4">
